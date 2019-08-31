@@ -28,28 +28,29 @@ extension Knob {
     }
 
     internal func updateTrackLayer() {
-        if let layer = trackLayer as? CAGradientLayer, let mask = trackLayer.mask as? CAShapeLayer {
-            layer.colors = trackLayerStyle.colors
-            layer.locations = trackLayerStyle.locations
-
-            let startAngle = radians(from: self.startAngle)
-            let endAngle = radians(from: self.endAngle)
-
-            let path = UIBezierPath(arcCenter: circleCenter, radius: circleRadius - trackThikness / 2, startAngle: startAngle, endAngle: endAngle, clockwise: true)
-
-            mask.path = path.cgPath
-            mask.lineCap = trackLayerStyle.lineCap
-            mask.lineJoin = trackLayerStyle.lineJoin
-            mask.lineWidth = trackThikness
+        guard let layer = trackLayer as? CAGradientLayer, let mask = trackLayer.mask as? CAShapeLayer else {
+            return
         }
+
+        layer.colors = trackLayerStyle.colors
+        layer.locations = trackLayerStyle.locations
+
+        mask.lineCap = trackLayerStyle.lineCap
+        mask.lineJoin = trackLayerStyle.lineJoin
+        mask.lineWidth = trackThikness
     }
 
     internal func layoutTrackLayer() {
-        guard let layer = trackLayer else {
+        guard let layer = trackLayer as? CAGradientLayer, let mask = trackLayer.mask as? CAShapeLayer else {
             return
         }
+
         layer.frame = bounds
-        updateTrackLayer()
+
+        let startAngle = radians(from: self.startAngle)
+        let endAngle = radians(from: self.endAngle)
+        let path = UIBezierPath(arcCenter: circleCenter, radius: circleRadius - trackThikness / 2, startAngle: startAngle, endAngle: endAngle, clockwise: true)
+        mask.path = path.cgPath
     }
 
 }
@@ -73,28 +74,29 @@ extension Knob {
     }
 
     internal func updateFillLayer() {
-        if let layer = fillLayer as? CAGradientLayer, let mask = fillLayer.mask as? CAShapeLayer {
-            layer.colors = fillLayerStyle.colors
-            layer.locations = fillLayerStyle.locations
-
-            let startAngle = radians(from: self.startAngle)
-            let endAngle = radians(from: self.currentAngle)
-
-            let path = UIBezierPath(arcCenter: circleCenter, radius: circleRadius - fillThikness / 2, startAngle: startAngle, endAngle: endAngle, clockwise: true)
-
-            mask.path = path.cgPath
-            mask.lineCap = fillLayerStyle.lineCap
-            mask.lineJoin = fillLayerStyle.lineJoin
-            mask.lineWidth = fillThikness
+        guard let layer = fillLayer as? CAGradientLayer, let mask = fillLayer.mask as? CAShapeLayer else {
+            return
         }
+
+        layer.colors = fillLayerStyle.colors
+        layer.locations = fillLayerStyle.locations
+
+        mask.lineCap = fillLayerStyle.lineCap
+        mask.lineJoin = fillLayerStyle.lineJoin
+        mask.lineWidth = fillThikness
     }
 
     internal func layoutFillLayer() {
-        guard let layer = fillLayer else {
+        guard let layer = fillLayer as? CAGradientLayer, let mask = fillLayer.mask as? CAShapeLayer else {
             return
         }
+
         layer.frame = bounds
-        updateFillLayer()
+
+        let startAngle = radians(from: self.startAngle)
+        let endAngle = radians(from: self.currentAngle)
+        let path = UIBezierPath(arcCenter: circleCenter, radius: circleRadius - fillThikness / 2, startAngle: startAngle, endAngle: endAngle, clockwise: true)
+        mask.path = path.cgPath
     }
 
 }

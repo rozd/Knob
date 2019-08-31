@@ -97,10 +97,20 @@ open class Knob: UIControl {
         }
     }
 
+    // MARK: - Lifecycle
+
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+
     // MARK: - Interface Builder
 
     override public func prepareForInterfaceBuilder() {
-        
+
     }
 
     // MARK: - Layers

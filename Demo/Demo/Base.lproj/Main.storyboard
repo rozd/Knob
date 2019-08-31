@@ -20,7 +20,7 @@
                                 <rect key="frame" x="57" y="298" width="300" height="300"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="300" id="7cs-Eq-y5O"/>
-                                    <constraint firstAttribute="height" constant="300" id="xuc-ga-2EN"/>
+                                    <constraint firstAttribute="width" secondItem="bZp-J1-2Zz" secondAttribute="height" multiplier="1:1" id="x2Q-ka-YzA"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="progress">
@@ -30,12 +30,17 @@
                             </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="bZp-J1-2Zz" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="J1M-2I-fLq"/>
                             <constraint firstItem="bZp-J1-2Zz" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="QMN-Is-ODe"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="knob" destination="bZp-J1-2Zz" id="4fd-Kf-d3Z"/>
+                        <outlet property="knobWidth" destination="7cs-Eq-y5O" id="Byh-4I-fxv"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

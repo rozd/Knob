@@ -10,11 +10,17 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    // MARK: Outlets
+
+    @IBOutlet weak var knob: DemoKnob!
+    @IBOutlet weak var knobWidth: NSLayoutConstraint!
+
+    // MARK: View lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
-
 
 }
 
