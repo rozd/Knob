@@ -8,4 +8,5 @@
 
 import Knob
 
+@IBDesignable
 class DemoKnob: Knob {}

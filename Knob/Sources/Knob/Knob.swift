@@ -4,7 +4,228 @@ import UIKit
 
 @IBDesignable
 open class Knob: UIControl {
-    
+
+    // MARK: - Appearance
+
+    public var untouchableRadius: CGFloat?
+
+    // MARK: Track
+
+    @IBInspectable
+    public var trackColor: UIColor? = .lightGray {
+        didSet {
+            trackLayerStyle.change(color: trackColor ?? Defaults.defaultTrackColor)
+        }
+    }
+
+    @IBInspectable
+    public var trackThikness: CGFloat = 3.0 {
+        didSet {
+            updateTrackLayer()
+        }
+    }
+
+    public var trackLayerStyle: LayerStyle = .solid(color: Defaults.defaultTrackColor) {
+        didSet {
+            updateTrackLayer()
+        }
+    }
+
+    // MARK: Fill
+
+    @IBInspectable
+    public var fillColor: UIColor? = .systemBlue {
+        didSet {
+            fillLayerStyle.change(color: fillColor ?? Defaults.defaultFillColor)
+        }
+    }
+
+    @IBInspectable
+    public var fillThikness: CGFloat = 3.0 {
+        didSet {
+            updateFillLayer()
+        }
+    }
+
+    public var fillLayerStyle: LayerStyle = .solid(color: Defaults.defaultFillColor) {
+        didSet {
+            updateFillLayer()
+        }
+    }
+
+    // MARK: Thumb
+
+    @IBInspectable
+    public var thumbColor: UIColor? = .white {
+        didSet {
+            updateThumbView()
+        }
+    }
+
+    @IBInspectable
+    public var thumbSize: CGSize = CGSize(width: 26.0, height: 26.0) {
+        didSet {
+            setNeedsLayout()
+        }
+    }
+
+    // MARK: - Data
+
+    @IBInspectable
+    public var progress: Float = 0.0 {
+        didSet {
+            setNeedsLayout()
+        }
+    }
+
+    @IBInspectable
+    public var isContinuous: Bool = true
+
+    @IBInspectable
+    public var startAngle: Float = 120.0
+
+    @IBInspectable
+    public var endAngle: Float = 60.0
+
+    @IBInspectable
+    open var currentAngle: Float {
+        get {
+            return startAngle + (360 - (startAngle - endAngle)) * self.progress
+        }
+        set {
+            self.progress = (newValue - startAngle) / (360 - (startAngle - endAngle))
+        }
+    }
+
+    // MARK: - Interface Builder
+
+    override public func prepareForInterfaceBuilder() {
+        
+    }
+
+    // MARK: - Layers
+
+    public private(set) lazy var trackLayer: CALayer! = {
+        let track = createTrackLayer()
+        layer.insertSublayer(track, at: 0)
+        return track
+    }()
+
+    public private(set) lazy var fillLayer: CALayer! = {
+        let fill = createFillLayer()
+        layer.insertSublayer(fill, at: 1)
+        return fill
+    }()
+
+    // MARK: - Views
+
+    public private(set) lazy var thumbView: UIView! = {
+        let thumb = createThumbView()
+        addSubview(thumb)
+        return thumb
+    }()
+
+    // MARK: - Layers & Views
+
+    open func createTrackLayer() -> CALayer {
+        return createDefaultTrackLayer()
+    }
+
+    open func createFillLayer() -> CALayer {
+        return createDefaultFillLayer()
+    }
+
+    open func createThumbView() -> UIView {
+        return createDefaultThumbView()
+    }
+
+    // MARK: - Layout
+
+    override public func layoutSubviews() {
+        super.layoutSubviews()
+
+        layoutTrackLayer()
+        updateTrackLayer()
+
+        layoutFillLayer()
+        updateFillLayer()
+
+        layoutThumbView()
+        updateThumbView()
+    }
+
+    // MARK: - Sliding
+
+    internal var _currentAngle: CGFloat = .zero
+
+    open func canSlidingStart(at point: CGPoint) -> Bool {
+        guard let untouchableRadius = untouchableRadius else {
+            return self.bounds.contains(point) || thumbView?.frame.contains(point) ?? false
+        }
+        let point = point.applying(CGAffineTransform(translationX: -bounds.width / 2, y: -bounds.height / 2))
+        let isPointInsideUntouchableArea = (point.x * point.x + point.y * point.y) < untouchableRadius * untouchableRadius
+        return !isPointInsideUntouchableArea
+    }
+
+    open func slidingDidStart(at point: CGPoint) {
+        _currentAngle = radians(for: point, in: self.bounds)
+        if let thumb = thumbView as? UIControl {
+            thumb.isHighlighted = true
+        }
+    }
+
+    open func slidingDidAdvance(to point: CGPoint) -> Bool {
+
+        let startAngle   = radians(from: self.startAngle)
+        let endAngle     = radians(from: self.endAngle)
+
+        let angle = constrain(radians: radians(for: point, in: self.bounds), from: startAngle, to: endAngle)
+
+        let theta = normalize(radians: angle - _currentAngle)
+
+        let halfAngle = (startAngle - endAngle) / 2
+
+        if _currentAngle == endAngle && theta < (.pi + halfAngle) {
+            return true
+        }
+
+        if _currentAngle == startAngle && theta > (.pi - halfAngle) {
+            return true
+        }
+
+        _currentAngle = angle
+
+        self.currentAngle = degrees(from: _currentAngle)
+
+        return true
+    }
+
+    open func slidingDidFinish(at point: CGPoint?) {
+        _currentAngle = .zero
+        if let thumb = thumbView as? UIControl {
+            thumb.isHighlighted = false
+        }
+    }
+
+    // MARK: - Touch Events
+
+    override open func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
+        let point = touch.location(in: self)
+        guard canSlidingStart(at: point) else {
+            return false
+        }
+        slidingDidStart(at: point)
+        return true
+    }
+
+    override open func continueTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
+        return slidingDidAdvance(to: touch.location(in: self))
+    }
+
+    override open func endTracking(_ touch: UITouch?, with event: UIEvent?) {
+        slidingDidFinish(at: touch?.location(in: self))
+    }
+
 }
 
 #endif
