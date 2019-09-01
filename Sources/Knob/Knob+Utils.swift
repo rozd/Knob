@@ -13,19 +13,19 @@ import UIKit
 
 extension Knob {
 
-    internal var circleCenter: CGPoint {
+    public var circleCenter: CGPoint {
         return CGPoint(x: self.bounds.width / 2, y: self.bounds.height / 2)
     }
 
-    internal var circleSize: CGFloat {
+    public var circleSize: CGFloat {
         return min(self.bounds.width, self.bounds.height)
     }
 
-    internal var circleRadius: CGFloat {
+    public var circleRadius: CGFloat {
         return circleSize * 0.5
     }
 
-    internal var thumbRadius: CGFloat {
+    public var thumbRadius: CGFloat {
         guard let thumb = thumbView else {
             return .zero
         }
@@ -37,34 +37,34 @@ extension Knob {
 
 extension Knob {
 
-    internal func radians(from degree: Float) -> CGFloat {
+    public func radians(from degree: Float) -> CGFloat {
         return radians(from: CGFloat(degree))
     }
 
-    internal func radians(from degree: CGFloat) -> CGFloat {
+    public func radians(from degree: CGFloat) -> CGFloat {
         return degree * .pi / 180
     }
 
-    internal func degrees(from radian: CGFloat) -> Float {
+    public func degrees(from radian: CGFloat) -> Float {
         return degrees(from: Float(radian))
     }
 
-    internal func degrees(from radian: Float) -> Float {
+    public func degrees(from radian: Float) -> Float {
         return radian * (180 / Float.pi)
     }
 
-    internal func degree(for location: CGPoint, in rect: CGRect) -> Float {
+    public func degree(for location: CGPoint, in rect: CGRect) -> Float {
         return degrees(from: radians(for: location, in: rect))
     }
 
-    internal func radians(for location: CGPoint, in rect: CGRect) -> CGFloat {
+    public func radians(for location: CGPoint, in rect: CGRect) -> CGFloat {
         let dx = location.x - (rect.size.width * 0.5)
         let dy = location.y - (rect.size.height * 0.5)
 
         return atan2(dy, dx)
     }
 
-    internal func normalize(degrees orientation: Float) -> Float {
+    public func normalize(degrees orientation: Float) -> Float {
         var orientation = orientation.truncatingRemainder(dividingBy: 360.0)
         if orientation < 0 {
             orientation += 360.0
@@ -72,7 +72,7 @@ extension Knob {
         return orientation
     }
 
-    internal func normalize(radians orientation: CGFloat) -> CGFloat {
+    public func normalize(radians orientation: CGFloat) -> CGFloat {
         var orientation = orientation.truncatingRemainder(dividingBy: 2 * .pi)
         if orientation < 0 {
             orientation += 2 * .pi
@@ -80,7 +80,7 @@ extension Knob {
         return orientation
     }
 
-    internal func constrain(radians angle: CGFloat, from startAngle: CGFloat, to endAngle: CGFloat) -> CGFloat {
+    public func constrain(radians angle: CGFloat, from startAngle: CGFloat, to endAngle: CGFloat) -> CGFloat {
         func setToNearestLimit(_ angle: CGFloat) -> CGFloat {
             if abs(angle - startAngle) < abs(angle - endAngle) {
                 return startAngle

@@ -206,7 +206,7 @@ open class Knob: UIControl {
 
     // MARK: - Layout
 
-    override public func layoutSubviews() {
+    override open func layoutSubviews() {
         super.layoutSubviews()
 
         layoutTrackLayer()
