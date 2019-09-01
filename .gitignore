@@ -24,3 +24,10 @@ DerivedData/
 
 ## Gcc Patch
 /*.gcno
+
+## Swift Package Manager
+.DS_Store
+/.build
+/Packages
+/*.xcodeproj
+xcuserdata/
