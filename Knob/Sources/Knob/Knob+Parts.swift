@@ -177,9 +177,9 @@ extension Knob {
     internal func createDefaultMarker(at index: Int) -> UIView {
         let view = UIView()
         view.isUserInteractionEnabled = false
-        view.frame = CGRect(origin: .zero, size: CGSize(width: 20, height: 5))
+        view.frame = CGRect(origin: .zero, size: CGSize(width: Default.markerSize, height: Default.markerSize))
         view.backgroundColor = .lightGray
-//        view.layer.cornerRadius = Default.markerSize / 2
+        view.layer.cornerRadius = Default.markerSize / 2
         return view
     }
 

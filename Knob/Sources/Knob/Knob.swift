@@ -88,6 +88,8 @@ open class Knob: UIControl {
     public var progress: Float = 0.0 {
         didSet {
             setNeedsLayout()
+            (thumbView as? KnobControl)?.update?(self, progress: progress)
+            (dialView as? KnobControl)?.update?(self, progress: progress)
         }
     }
 
@@ -95,10 +97,20 @@ open class Knob: UIControl {
     public var isContinuous: Bool = true
 
     @IBInspectable
-    public var startAngle: Float = 120.0
+    public var startAngle: Float = 120.0 {
+        didSet {
+            (thumbView as? KnobControl)?.update?(self, startAngle: startAngle, endAngle: endAngle)
+            (dialView as? KnobControl)?.update?(self, startAngle: startAngle, endAngle: endAngle)
+        }
+    }
 
     @IBInspectable
-    public var endAngle: Float = 60.0
+    public var endAngle: Float = 60.0 {
+        didSet {
+            (thumbView as? KnobControl)?.update?(self, startAngle: startAngle, endAngle: endAngle)
+            (dialView as? KnobControl)?.update?(self, startAngle: startAngle, endAngle: endAngle)
+        }
+    }
 
     @IBInspectable
     open var currentAngle: Float {

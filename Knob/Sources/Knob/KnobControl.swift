@@ -13,7 +13,12 @@ import UIKit
 
 @objc public protocol KnobControl: class {
 
-    
+    @objc
+    optional func update(_ knob: Knob, progress: Float)
+
+    @objc
+    optional func update(_ knob: Knob, startAngle: Float, endAngle: Float)
+
 }
 
 // MARK: Knob Dial default implementation
