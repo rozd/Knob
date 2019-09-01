@@ -146,7 +146,7 @@ extension Knob {
 
 }
 
-// MARK: - Dial
+// MARK: - Dial View
 
 extension Knob {
 
@@ -177,9 +177,9 @@ extension Knob {
     internal func createDefaultMarker(at index: Int) -> UIView {
         let view = UIView()
         view.isUserInteractionEnabled = false
-        view.frame = CGRect(origin: .zero, size: CGSize(width: Defaults.markerSize, height: Defaults.markerSize))
+        view.frame = CGRect(origin: .zero, size: CGSize(width: 20, height: 5))
         view.backgroundColor = .lightGray
-        view.layer.cornerRadius = Defaults.markerSize / 2
+//        view.layer.cornerRadius = Default.markerSize / 2
         return view
     }
 
@@ -209,9 +209,13 @@ extension Knob {
             let x = cos(angle)
             let y = sin(angle)
 
+            marker.transform = .identity
+
             var rect = marker.frame
 
-            let radius = (circleRadius - max(trackThikness, fillThikness) / 2)
+            let markerOffset = self.offset(for: marker, at: index)
+
+            let radius = (circleRadius - max(trackThikness, fillThikness) / 2) + markerOffset
 
             let newX = CGFloat(x) * radius + circleCenter.x
             let newY = CGFloat(y) * radius + circleCenter.y
@@ -220,7 +224,13 @@ extension Knob {
             rect.origin.y = newY - marker.frame.height / 2
 
             marker.frame = rect
+
+            marker.transform = transform(for: marker, at: index, positionedBy: angle)
         }
+    }
+
+    internal func offset(for marker: UIView, at index: Int) -> CGFloat {
+        return self.delegate?.knob?(self, offsetForMarkerAt: index) ?? markerOffset
     }
 
     internal func angle(for marker: UIView, at index: Int) -> Float {
@@ -228,6 +238,9 @@ extension Knob {
         return startAngle + (360.0 - (startAngle - endAngle)) * percentage
     }
 
+    internal func transform(for marker: UIView, at index: Int, positionedBy angle: CGFloat) -> CGAffineTransform {
+        return self.delegate?.knob?(self, transformForMarkerAt: index) ?? CGAffineTransform(rotationAngle: angle)
+    }
 }
 
 #endif

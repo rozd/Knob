@@ -13,6 +13,7 @@ import UIKit
 
 @objc public protocol KnobControl: class {
 
+    
 }
 
 // MARK: Knob Dial default implementation

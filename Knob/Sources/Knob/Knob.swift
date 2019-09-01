@@ -6,8 +6,13 @@ import UIKit
 public protocol KnobDelegate: class {
 
     @objc
-    optional func knob(_ knob: Knob, viewForMarkerAt index: Int) -> UIView?
+    optional func knob(_ knob: Knob, viewForMarkerAt index: Int) -> UIView
 
+    @objc
+    optional func knob(_ knob: Knob, transformForMarkerAt index: Int) -> CGAffineTransform
+
+    @objc
+    optional func knob(_ knob: Knob, offsetForMarkerAt index: Int) -> CGFloat
 }
 
 @IBDesignable
@@ -22,7 +27,7 @@ open class Knob: UIControl {
     @IBInspectable
     public var trackColor: UIColor? = .lightGray {
         didSet {
-            trackLayerStyle.change(color: trackColor ?? Defaults.defaultTrackColor)
+            trackLayerStyle.change(color: trackColor ?? Default.trackColor)
         }
     }
 
@@ -33,7 +38,7 @@ open class Knob: UIControl {
         }
     }
 
-    public var trackLayerStyle: LayerStyle = .solid(color: Defaults.defaultTrackColor) {
+    public var trackLayerStyle: LayerStyle = .solid(color: Default.trackColor) {
         didSet {
             updateTrackLayer()
         }
@@ -44,7 +49,7 @@ open class Knob: UIControl {
     @IBInspectable
     public var fillColor: UIColor? = .systemBlue {
         didSet {
-            fillLayerStyle.change(color: fillColor ?? Defaults.defaultFillColor)
+            fillLayerStyle.change(color: fillColor ?? Default.fillColor)
         }
     }
 
@@ -55,7 +60,7 @@ open class Knob: UIControl {
         }
     }
 
-    public var fillLayerStyle: LayerStyle = .solid(color: Defaults.defaultFillColor) {
+    public var fillLayerStyle: LayerStyle = .solid(color: Default.fillColor) {
         didSet {
             updateFillLayer()
         }
@@ -111,6 +116,13 @@ open class Knob: UIControl {
     public var markerCount: Int = .zero {
         didSet {
             refreshMarkersIfNeeded()
+        }
+    }
+
+    @IBInspectable
+    public var markerOffset: CGFloat = .zero {
+        didSet {
+            layoutMarkersIfNeeded()
         }
     }
 
