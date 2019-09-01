@@ -2,6 +2,14 @@
 
 import UIKit
 
+@objc
+public protocol KnobDelegate: class {
+
+    @objc
+    optional func knob(_ knob: Knob, viewForMarkerAt index: Int) -> UIView?
+
+}
+
 @IBDesignable
 open class Knob: UIControl {
 
@@ -97,6 +105,19 @@ open class Knob: UIControl {
         }
     }
 
+    // MARK: Markers
+
+    @IBInspectable
+    public var markerCount: Int = .zero {
+        didSet {
+            refreshMarkersIfNeeded()
+        }
+    }
+
+    // MARK: - Delegate
+
+    public weak var delegate: KnobDelegate?
+
     // MARK: - Lifecycle
 
     public override init(frame: CGRect) {
@@ -135,6 +156,12 @@ open class Knob: UIControl {
         return thumb
     }()
 
+    public private(set) lazy var dialView: UIView = {
+        let dial = createDialView()
+        insertSubview(dial, at: 0)
+        return dial
+    }()
+
     // MARK: - Layers & Views
 
     open func createTrackLayer() -> CALayer {
@@ -147,6 +174,10 @@ open class Knob: UIControl {
 
     open func createThumbView() -> UIView {
         return createDefaultThumbView()
+    }
+
+    open func createDialView() -> UIView {
+        return createDefaultDialView()
     }
 
     // MARK: - Layout
@@ -162,6 +193,9 @@ open class Knob: UIControl {
 
         layoutThumbView()
         updateThumbView()
+
+        layoutDialView()
+        updateDialView()
     }
 
     // MARK: - Sliding

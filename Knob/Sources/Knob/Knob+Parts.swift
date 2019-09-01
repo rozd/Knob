@@ -145,4 +145,89 @@ extension Knob {
     }
 
 }
+
+// MARK: - Dial
+
+extension Knob {
+
+    internal func createDefaultDialView() -> DefaultKnobDial {
+        let dial = DefaultKnobDial()
+        dial.isUserInteractionEnabled = false
+        return dial
+    }
+
+    internal func updateDialView() {
+        refreshMarkersIfNeeded()
+    }
+
+    internal func layoutDialView() {
+        layoutMarkersIfNeeded()
+    }
+
+}
+
+// MARK: - Markers
+
+extension Knob {
+
+    internal func createMarker(at index: Int) -> UIView {
+        return self.delegate?.knob?(self, viewForMarkerAt: index) ?? createDefaultMarker(at: index)
+    }
+
+    internal func createDefaultMarker(at index: Int) -> UIView {
+        let view = UIView()
+        view.isUserInteractionEnabled = false
+        view.frame = CGRect(origin: .zero, size: CGSize(width: Defaults.markerSize, height: Defaults.markerSize))
+        view.backgroundColor = .lightGray
+        view.layer.cornerRadius = Defaults.markerSize / 2
+        return view
+    }
+
+    internal func refreshMarkersIfNeeded() {
+        guard let dial = dialView as? DefaultKnobDial else {
+            return
+        }
+
+        guard dial.subviews.count != markerCount else {
+            return
+        }
+
+        for index in 0..<markerCount {
+            let marker = createMarker(at: index)
+            dial.insertSubview(marker, at: index)
+        }
+    }
+
+    internal func layoutMarkersIfNeeded() {
+        guard let dial = dialView as? DefaultKnobDial else {
+            return
+        }
+
+        for (index, marker) in dial.subviews.enumerated() {
+            let angle = radians(from: self.angle(for: marker, at: index))
+
+            let x = cos(angle)
+            let y = sin(angle)
+
+            var rect = marker.frame
+
+            let radius = (circleRadius - max(trackThikness, fillThikness) / 2)
+
+            let newX = CGFloat(x) * radius + circleCenter.x
+            let newY = CGFloat(y) * radius + circleCenter.y
+
+            rect.origin.x = newX - marker.frame.width / 2
+            rect.origin.y = newY - marker.frame.height / 2
+
+            marker.frame = rect
+        }
+    }
+
+    internal func angle(for marker: UIView, at index: Int) -> Float {
+        let percentage: Float = ((100.0 / Float(markerCount - 1)) * Float(index)) / 100.0
+        return startAngle + (360.0 - (startAngle - endAngle)) * percentage
+    }
+
+}
+
 #endif
