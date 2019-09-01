@@ -78,7 +78,40 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CLn-EC-BKj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="704" y="867"/>
+            <point key="canvasLocation" x="242" y="867"/>
+        </scene>
+        <!--Custom Markers-->
+        <scene sceneID="1it-Jl-fwl">
+            <objects>
+                <viewController id="qCb-Pl-96m" customClass="CustomMarkersViewController" customModule="Demo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="4S5-7r-4eL">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cH2-wr-Lf2" customClass="DemoKnob" customModule="Demo" customModuleProvider="target">
+                                <rect key="frame" x="57" y="298" width="300" height="300"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="6NN-7G-no2"/>
+                                    <constraint firstAttribute="width" constant="300" id="Dwj-8e-6Zt"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="cH2-wr-Lf2" firstAttribute="centerY" secondItem="4S5-7r-4eL" secondAttribute="centerY" id="OZk-W8-FCJ"/>
+                            <constraint firstItem="cH2-wr-Lf2" firstAttribute="centerX" secondItem="4S5-7r-4eL" secondAttribute="centerX" id="Zxx-yX-xis"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="tYF-3Y-Dt9"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Custom Markers" id="D1G-4z-mNH"/>
+                    <connections>
+                        <outlet property="knob" destination="cH2-wr-Lf2" id="JB3-cQ-ll1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ksV-p6-6vt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="988" y="867"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="tul-OA-Kau">
@@ -92,6 +125,7 @@
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="yie-eE-gu5"/>
                         <segue destination="kdY-7a-9J6" kind="relationship" relationship="viewControllers" id="14O-qv-0tC"/>
+                        <segue destination="qCb-Pl-96m" kind="relationship" relationship="viewControllers" id="4Mu-6g-9Sr"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pLf-X9-UCM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
