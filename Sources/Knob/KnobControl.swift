@@ -23,8 +23,17 @@ import UIKit
 
 // MARK: Knob Dial default implementation
 
-open class DefaultKnobDial: UIView, KnobControl {
+open class DefaultKnobDial: UIView {
 
+}
+
+extension DefaultKnobDial: KnobControl {
+
+    open func update(_ knob: Knob, progress: Float) {
+    }
+
+    open func update(_ knob: Knob, startAngle: Float, endAngle: Float) {
+    }
 }
 
 #endif

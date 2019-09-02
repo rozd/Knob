@@ -160,13 +160,13 @@ open class Knob: UIControl {
 
     // MARK: - Layers
 
-    public private(set) lazy var trackLayer: CALayer! = {
+    open private(set) lazy var trackLayer: CALayer! = {
         let track = createTrackLayer()
         layer.insertSublayer(track, at: 0)
         return track
     }()
 
-    public private(set) lazy var fillLayer: CALayer! = {
+    open private(set) lazy var fillLayer: CALayer! = {
         let fill = createFillLayer()
         layer.insertSublayer(fill, at: 1)
         return fill
@@ -174,13 +174,13 @@ open class Knob: UIControl {
 
     // MARK: - Views
 
-    public private(set) lazy var thumbView: UIView! = {
+    open private(set) lazy var thumbView: UIView! = {
         let thumb = createThumbView()
         addSubview(thumb)
         return thumb
     }()
 
-    public private(set) lazy var dialView: UIView = {
+    open private(set) lazy var dialView: UIView = {
         let dial = createDialView()
         insertSubview(dial, at: 0)
         return dial
