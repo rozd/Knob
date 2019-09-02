@@ -3,7 +3,7 @@
 import UIKit
 
 @objc
-public protocol KnobDelegate: class {
+public protocol KnobDataSource: class {
 
     @objc
     optional func knob(_ knob: Knob, viewForMarkerAt index: Int) -> UIView
@@ -137,7 +137,7 @@ open class Knob: UIControl {
 
     // MARK: - Delegate
 
-    public weak var delegate: KnobDelegate?
+    public weak var dataSource: KnobDataSource?
 
     // MARK: - Lifecycle
 

@@ -44,7 +44,7 @@ class CustomMarkersViewController: UIViewController {
 
 // MARK: - KnobDelegate
 
-extension CustomMarkersViewController: KnobDelegate {
+extension CustomMarkersViewController: KnobDataSource {
 
     func knob(_ knob: Knob, viewForMarkerAt index: Int) -> UIView {
         let label = UILabel()

@@ -189,7 +189,7 @@ extension Knob {
 extension Knob {
 
     internal func createMarker(at index: Int) -> UIView {
-        return self.delegate?.knob?(self, viewForMarkerAt: index) ?? createDefaultMarker(at: index)
+        return self.dataSource?.knob?(self, viewForMarkerAt: index) ?? createDefaultMarker(at: index)
     }
 
     internal func createDefaultMarker(at index: Int) -> UIView {
@@ -248,7 +248,7 @@ extension Knob {
     }
 
     internal func offset(for marker: UIView, at index: Int) -> CGFloat {
-        return self.delegate?.knob?(self, offsetForMarkerAt: index) ?? markerOffset
+        return self.dataSource?.knob?(self, offsetForMarkerAt: index) ?? markerOffset
     }
 
     internal func angle(for marker: UIView, at index: Int) -> Float {
@@ -257,7 +257,7 @@ extension Knob {
     }
 
     internal func transform(for marker: UIView, at index: Int, positionedBy angle: CGFloat) -> CGAffineTransform {
-        return self.delegate?.knob?(self, transformForMarkerAt: index) ?? CGAffineTransform(rotationAngle: angle)
+        return self.dataSource?.knob?(self, transformForMarkerAt: index) ?? CGAffineTransform(rotationAngle: angle)
     }
 }
 
