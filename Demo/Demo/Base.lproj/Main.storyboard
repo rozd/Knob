@@ -18,8 +18,18 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bZp-J1-2Zz" customClass="DemoKnob" customModule="Demo" customModuleProvider="target">
                                 <rect key="frame" x="57" y="298" width="300" height="300"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1WE-Jc-S2W">
+                                        <rect key="frame" x="129" y="139.5" width="42" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="300" id="7cs-Eq-y5O"/>
+                                    <constraint firstItem="1WE-Jc-S2W" firstAttribute="centerY" secondItem="bZp-J1-2Zz" secondAttribute="centerY" id="OfB-KC-nuK"/>
+                                    <constraint firstItem="1WE-Jc-S2W" firstAttribute="centerX" secondItem="bZp-J1-2Zz" secondAttribute="centerX" id="dAb-Cw-GyA"/>
                                     <constraint firstAttribute="width" secondItem="bZp-J1-2Zz" secondAttribute="height" multiplier="1:1" id="x2Q-ka-YzA"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
@@ -29,7 +39,16 @@
                                     <userDefinedRuntimeAttribute type="number" keyPath="markerCount">
                                         <integer key="value" value="5"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="startAngle">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="endAngle">
+                                        <real key="value" value="360"/>
+                                    </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="handleValueChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="08B-XZ-AwV"/>
+                                </connections>
                             </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -44,6 +63,7 @@
                     <connections>
                         <outlet property="knob" destination="bZp-J1-2Zz" id="4fd-Kf-d3Z"/>
                         <outlet property="knobWidth" destination="7cs-Eq-y5O" id="Byh-4I-fxv"/>
+                        <outlet property="progressLabel" destination="1WE-Jc-S2W" id="KIt-BO-VFj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -119,6 +139,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="Xq9-pF-AF6" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="qWK-Qs-sHR">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>

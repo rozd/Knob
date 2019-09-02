@@ -81,6 +81,10 @@ extension Knob {
     }
 
     public func constrain(radians angle: CGFloat, from startAngle: CGFloat, to endAngle: CGFloat) -> CGFloat {
+        guard normalize(radians: startAngle) != normalize(radians: endAngle) else {
+            return angle
+        }
+
         func setToNearestLimit(_ angle: CGFloat) -> CGFloat {
             if abs(angle - startAngle) < abs(angle - endAngle) {
                 return startAngle

@@ -89,6 +89,7 @@ open class Knob: UIControl {
         didSet {
             setNeedsLayout()
             updateControlsIfExist()
+            self.sendActions(for: .valueChanged)
         }
     }
 
@@ -110,12 +111,13 @@ open class Knob: UIControl {
     }
 
     @IBInspectable
-    open var currentAngle: Float {
-        get {
-            return startAngle + (360 - (startAngle - endAngle)) * self.progress
-        }
-        set {
-            self.progress = (newValue - startAngle) / (360 - (startAngle - endAngle))
+    open var currentAngle: Float = 120.0 {
+        didSet {
+            if endAngle > startAngle {
+                self.progress = (normalize(degrees: currentAngle) - startAngle) / (endAngle - startAngle)
+            } else {
+                self.progress = (normalize(degrees: currentAngle) - startAngle) / (360 + startAngle - endAngle)
+            }
         }
     }
 
@@ -244,7 +246,11 @@ open class Knob: UIControl {
         let startAngle   = radians(from: self.startAngle)
         let endAngle     = radians(from: self.endAngle)
 
-        let angle = constrain(radians: radians(for: point, in: self.bounds), from: startAngle, to: endAngle)
+        var angle = radians(for: point, in: self.bounds)
+
+        let originalAngle = degrees(from: angle)
+
+        angle = constrain(radians: radians(for: point, in: self.bounds), from: startAngle, to: endAngle)
 
         let theta = normalize(radians: angle - _currentAngle)
 

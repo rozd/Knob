@@ -24,7 +24,7 @@ class CustomMarkersViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        knob.delegate = self
+        knob.dataSource = self
 
         knob.markerCount = labels.count
     }

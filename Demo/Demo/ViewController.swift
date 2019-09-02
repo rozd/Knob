@@ -14,6 +14,7 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var knob: DemoKnob!
     @IBOutlet weak var knobWidth: NSLayoutConstraint!
+    @IBOutlet weak var progressLabel: UILabel!
 
     // MARK: View lifecycle
 
@@ -23,5 +24,8 @@ class ViewController: UIViewController {
         knob.markerCount = 5
     }
 
+    @IBAction func handleValueChanged(_ sender: Any) {
+        progressLabel.text = "\(Int(knob.progress * 100))"
+    }
 }
 
