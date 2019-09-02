@@ -253,8 +253,7 @@ extension Knob {
 
     internal func angle(for marker: UIView, at index: Int) -> Float {
         let percentage: Float = ((100.0 / Float(markerCount - 1)) * Float(index)) / 100.0
-
-        return startAngle + (endAngle - startAngle) * percentage
+        return degrees(for: percentage, from: startAngle, endAngle: endAngle)
     }
 
     internal func transform(for marker: UIView, at index: Int, positionedBy angle: CGFloat) -> CGAffineTransform {

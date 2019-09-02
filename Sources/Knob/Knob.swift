@@ -113,11 +113,7 @@ open class Knob: UIControl {
     @IBInspectable
     open var currentAngle: Float = 120.0 {
         didSet {
-            if endAngle > startAngle {
-                self.progress = (normalize(degrees: currentAngle) - startAngle) / (endAngle - startAngle)
-            } else {
-                self.progress = (normalize(degrees: currentAngle) - startAngle) / (360 + startAngle - endAngle)
-            }
+            self.progress = percentage(degree: currentAngle, from: startAngle, to: endAngle)
         }
     }
 

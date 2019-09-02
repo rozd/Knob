@@ -106,6 +106,22 @@ extension Knob {
         return angle
     }
 
+    public func percentage(degree angle: Float, from startAngle: Float, to endAngle: Float) -> Float {
+        if endAngle > startAngle {
+            return (normalize(degrees: currentAngle) - startAngle) / (endAngle - startAngle)
+        } else {
+            return (normalize(degrees: currentAngle) - startAngle) / (360.0 + startAngle - endAngle)
+        }
+    }
+
+    public func degrees(for percentage: Float, from startAngle: Float, endAngle: Float) -> Float {
+        if endAngle > startAngle {
+            return startAngle + (endAngle - startAngle) * percentage
+        } else {
+            return startAngle + (360.0 + endAngle - startAngle) * percentage
+        }
+    }
+
 }
 
 #endif
