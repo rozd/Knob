@@ -9,6 +9,24 @@
 
 import UIKit
 
+// MARK: - Common
+
+extension Knob {
+
+    public func updateControlsIfExist() {
+
+        for case let view as KnobControl in subviews {
+            view.update?(self, progress: progress, startAngle: startAngle, endAngle: endAngle)
+        }
+
+        for case let layer as KnobControl in layer.sublayers ?? [] {
+            layer.update?(self, progress: progress, startAngle: startAngle, endAngle: endAngle)
+        }
+
+    }
+
+}
+
 // MARK: - Track
 
 extension Knob {

@@ -14,10 +14,7 @@ import UIKit
 @objc public protocol KnobControl: class {
 
     @objc
-    optional func update(_ knob: Knob, progress: Float)
-
-    @objc
-    optional func update(_ knob: Knob, startAngle: Float, endAngle: Float)
+    optional func update(_ knob: Knob, progress: Float, startAngle: Float, endAngle: Float)
 
 }
 
@@ -29,11 +26,9 @@ open class DefaultKnobDial: UIView {
 
 extension DefaultKnobDial: KnobControl {
 
-    open func update(_ knob: Knob, progress: Float) {
+    open func update(_ knob: Knob, progress: Float, startAngle: Float, endAngle: Float) {
     }
-
-    open func update(_ knob: Knob, startAngle: Float, endAngle: Float) {
-    }
+    
 }
 
 #endif
