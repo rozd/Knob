@@ -131,4 +131,12 @@ public func degrees(for percentage: Float, from startAngle: Float, endAngle: Flo
     }
 }
 
+public func radians(for percentage: CGFloat, from startAngle: CGFloat, endAngle: CGFloat) -> CGFloat {
+    if endAngle > startAngle {
+        return startAngle + (endAngle - startAngle) * percentage
+    } else {
+        return startAngle + (2 * .pi + endAngle - startAngle) * percentage
+    }
+}
+
 #endif
