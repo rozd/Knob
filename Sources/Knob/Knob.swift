@@ -89,7 +89,7 @@ open class Knob: UIControl {
         didSet {
             setNeedsLayout()
             updateControlsIfExist()
-            self.sendActions(for: .valueChanged)
+            sendActions(for: .valueChanged)
         }
     }
 
@@ -158,12 +158,14 @@ open class Knob: UIControl {
     open private(set) lazy var trackLayer: CALayer! = {
         let track = createTrackLayer()
         layer.insertSublayer(track, at: 0)
+        (track as? KnobControl)?.update?(self, progress: preorder, startAngle: startAngle, endAngle: endAngle)
         return track
     }()
 
     open private(set) lazy var fillLayer: CALayer! = {
         let fill = createFillLayer()
         layer.insertSublayer(fill, at: 1)
+        (fill as? KnobControl)?.update?(self, progress: preorder, startAngle: startAngle, endAngle: endAngle)
         return fill
     }()
 
@@ -172,12 +174,14 @@ open class Knob: UIControl {
     open private(set) lazy var thumbView: UIView! = {
         let thumb = createThumbView()
         addSubview(thumb)
+        (thumb as? KnobControl)?.update?(self, progress: preorder, startAngle: startAngle, endAngle: endAngle)
         return thumb
     }()
 
     open private(set) lazy var dialView: UIView = {
         let dial = createDialView()
         insertSubview(dial, at: 0)
+        (dial as? KnobControl)?.update?(self, progress: preorder, startAngle: startAngle, endAngle: endAngle)
         return dial
     }()
 
