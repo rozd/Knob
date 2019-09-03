@@ -253,12 +253,13 @@ extension Knob {
 
     internal func angle(for marker: UIView, at index: Int) -> Float {
         let percentage: Float = ((100.0 / Float(markerCount - 1)) * Float(index)) / 100.0
-        return degrees(for: percentage, from: startAngle, endAngle: endAngle)
+        return degrees(for: percentage, from: startAngle, to: endAngle)
     }
 
     internal func transform(for marker: UIView, at index: Int, positionedBy angle: CGFloat) -> CGAffineTransform {
         return self.dataSource?.knob?(self, transformForMarkerAt: index) ?? CGAffineTransform(rotationAngle: angle)
     }
+    
 }
 
 #endif
