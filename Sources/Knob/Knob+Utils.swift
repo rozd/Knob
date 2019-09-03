@@ -80,7 +80,13 @@ extension Knob {
         return orientation
     }
 
-    public func constrain(radians angle: CGFloat, from startAngle: CGFloat, to endAngle: CGFloat) -> CGFloat {
+    public func limit(degrees angle: Float, from startAngle: Float, endAngle: Float) -> Float {
+        return degrees(from: limit(radians: radians(from: angle),
+                                       from: radians(from: startAngle),
+                                       to: radians(from: endAngle)))
+    }
+
+    public func limit(radians angle: CGFloat, from startAngle: CGFloat, to endAngle: CGFloat) -> CGFloat {
         guard normalize(radians: startAngle) != normalize(radians: endAngle) else {
             return angle
         }
@@ -107,10 +113,17 @@ extension Knob {
     }
 
     public func percentage(degree angle: Float, from startAngle: Float, to endAngle: Float) -> Float {
+        let midPointAngle = (360 + startAngle - endAngle) / 2.0 + endAngle
+
+        var angle = normalize(degrees: angle)
+
         if endAngle > startAngle {
-            return (normalize(degrees: currentAngle) - startAngle) / (endAngle - startAngle)
+            return (angle - startAngle) / (endAngle - startAngle)
         } else {
-            return (normalize(degrees: currentAngle) - startAngle) / (360.0 + startAngle - endAngle)
+            if angle < startAngle {
+                angle += 360
+            }
+            return (angle - startAngle) / (360 - (startAngle - endAngle))
         }
     }
 
@@ -121,6 +134,8 @@ extension Knob {
             return startAngle + (360.0 + endAngle - startAngle) * percentage
         }
     }
+
+
 
 }
 

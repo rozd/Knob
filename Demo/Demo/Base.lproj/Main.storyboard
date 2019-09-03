@@ -20,7 +20,7 @@
                                 <rect key="frame" x="57" y="298" width="300" height="300"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1WE-Jc-S2W">
-                                        <rect key="frame" x="129" y="139.5" width="42" height="21"/>
+                                        <rect key="frame" x="129" y="140" width="42" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -39,23 +39,52 @@
                                     <userDefinedRuntimeAttribute type="number" keyPath="markerCount">
                                         <integer key="value" value="5"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="startAngle">
-                                        <real key="value" value="0.0"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="endAngle">
-                                        <real key="value" value="360"/>
-                                    </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="handleValueChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="08B-XZ-AwV"/>
                                 </connections>
                             </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="NvS-c5-rSb">
+                                <rect key="frame" x="15" y="59" width="384" height="128"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xiE-KS-1rF" customClass="DemoKnob" customModule="Demo" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="162" height="128"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="startAngle">
+                                                <real key="value" value="0.0"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="endAngle">
+                                                <real key="value" value="180"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rvV-5T-McL" customClass="DemoKnob" customModule="Demo" customModuleProvider="target">
+                                        <rect key="frame" x="182" y="0.0" width="202" height="128"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="startAngle">
+                                                <real key="value" value="0.0"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="endAngle">
+                                                <real key="value" value="360"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="P0n-Tu-DBE"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <gestureRecognizers/>
                         <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="NvS-c5-rSb" secondAttribute="trailing" constant="15" id="7Yo-Jy-lCX"/>
                             <constraint firstItem="bZp-J1-2Zz" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="J1M-2I-fLq"/>
                             <constraint firstItem="bZp-J1-2Zz" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="QMN-Is-ODe"/>
+                            <constraint firstItem="NvS-c5-rSb" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="15" id="aPR-Ug-tDV"/>
+                            <constraint firstItem="NvS-c5-rSb" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="15" id="i9S-82-lgv"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -68,7 +97,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-458" y="867"/>
+            <point key="canvasLocation" x="-459.4202898550725" y="866.51785714285711"/>
         </scene>
         <!--Default-->
         <scene sceneID="vTs-Sy-Q9s">

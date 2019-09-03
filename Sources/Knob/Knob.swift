@@ -246,7 +246,7 @@ open class Knob: UIControl {
 
         let originalAngle = degrees(from: angle)
 
-        angle = constrain(radians: radians(for: point, in: self.bounds), from: startAngle, to: endAngle)
+        angle = limit(radians: radians(for: point, in: self.bounds), from: startAngle, to: endAngle)
 
         let theta = normalize(radians: angle - _currentAngle)
 
