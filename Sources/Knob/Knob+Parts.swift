@@ -46,6 +46,8 @@ extension Knob {
     }
 
     internal func updateTrackLayer() {
+        (trackLayer as? KnobControl)?.update?(self, progress: progress, startAngle: startAngle, endAngle: endAngle)
+
         guard let layer = trackLayer as? CAGradientLayer, let mask = trackLayer.mask as? CAShapeLayer else {
             return
         }
@@ -92,6 +94,8 @@ extension Knob {
     }
 
     internal func updateFillLayer() {
+        (fillLayer as? KnobControl)?.update?(self, progress: progress, startAngle: startAngle, endAngle: endAngle)
+
         guard let layer = fillLayer as? CAGradientLayer, let mask = fillLayer.mask as? CAShapeLayer else {
             return
         }
@@ -138,6 +142,7 @@ extension Knob {
     }
 
     internal func updateThumbView() {
+        (thumbView as? KnobControl)?.update?(self, progress: progress, startAngle: startAngle, endAngle: endAngle)
         if let color = thumbColor {
             thumbView?.backgroundColor = color
         }
@@ -175,6 +180,7 @@ extension Knob {
     }
 
     internal func updateDialView() {
+        (dialView as? KnobControl)?.update?(self, progress: progress, startAngle: startAngle, endAngle: endAngle)
         refreshMarkersIfNeeded()
     }
 
@@ -259,7 +265,7 @@ extension Knob {
     internal func transform(for marker: UIView, at index: Int, positionedBy angle: CGFloat) -> CGAffineTransform {
         return self.dataSource?.knob?(self, transformForMarkerAt: index) ?? CGAffineTransform(rotationAngle: angle)
     }
-    
+
 }
 
 #endif
